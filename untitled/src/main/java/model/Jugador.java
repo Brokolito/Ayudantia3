@@ -1,4 +1,8 @@
-public class Objeto {
+package model;
+
+import java.util.ArrayList;
+
+public class Jugador {
 	private String nombre;
 	private int fuerza;
 	private int inteligencia;
@@ -6,10 +10,21 @@ public class Objeto {
 	private int armadura;
 	private int estamina;
 	private int vida;
+	private ArrayList<Objeto> objetos;
 
-	public Objeto(String nombre, int fuerza, int inteligencia, int bloqueo, int estamina, int vida) {
-		throw new UnsupportedOperationException();
-	}
+	public Jugador(String nombre) {
+		this.nombre=nombre;
+		this.objetos=new ArrayList<>();
+		this.fuerza=1;
+		this.inteligencia=2;
+		this.bloqueo=5;
+		this.armadura=10;
+		this.estamina=10;
+		int vidaExtra=0;
+		for(Objeto objeto:this.objetos){
+			vidaExtra=+ objeto.getVida();
+		}
+		this.vida=1000+vidaExtra;	}
 
 	public String getNombre() {
 		return this.nombre;
@@ -66,4 +81,28 @@ public class Objeto {
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
-}
+
+	public ArrayList<Objeto> getObjetos() {
+		return this.objetos;
+	}
+
+	public void setObjetos(ArrayList<Objeto> objetos) {
+		this.objetos=objetos;
+	}
+
+	public int atacar() {
+		return (this.fuerza+inteligencia+5);
+	}
+	public boolean getDamage(int damage){
+		int bloqueo=0;
+		for(Objeto objeto:this.objetos){
+			bloqueo=+ objeto.getBloqueo()+objeto.getArmadura();
+		}
+		int newDamage=bloqueo-damage;
+		if(this.vida!=0){
+			setVida(this.vida-newDamage);
+			return true;
+		}
+		return false;
+	}
+	}

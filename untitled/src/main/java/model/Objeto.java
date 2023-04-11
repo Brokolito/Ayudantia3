@@ -1,18 +1,21 @@
-import java.util.ArrayList;
+package model;
 
-public abstract class Enemigo {
+public class Objeto {
 	private String nombre;
-	protected int fuerza;
-	protected int inteligencia;
-	protected int bloqueo;
-	protected int armadura;
-	protected int estamina;
-	protected int vida;
-	protected ArrayList<Objeto> objetos;
+	private int fuerza;
+	private int inteligencia;
+	private int bloqueo;
+	private int armadura;
+	private int estamina;
+	private int vida;
 
-	public Enemigo(String nombre) {
+	public Objeto(String nombre, int fuerza, int inteligencia, int bloqueo, int estamina, int vida) {
 		this.nombre=nombre;
-		this.objetos=new ArrayList<>();
+		this.fuerza=fuerza;
+		this.inteligencia=inteligencia;
+		this.bloqueo=bloqueo;
+		this.estamina=estamina;
+		this.vida=vida;
 	}
 
 	public String getNombre() {
@@ -63,14 +66,6 @@ public abstract class Enemigo {
 		this.estamina = estamina;
 	}
 
-	public ArrayList<Objeto> getObjetos() {
-		return objetos;
-	}
-
-	public void setObjetos(ArrayList<Objeto> objetos) {
-		this.objetos = objetos;
-	}
-
 	public int getVida() {
 		return this.vida;
 	}
@@ -78,21 +73,4 @@ public abstract class Enemigo {
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
-
-	public abstract String getType();
-
-	public abstract int atacar();
-	public boolean getDamage(int damage){
-		int bloqueo=0;
-		for(Objeto objeto:this.objetos){
-			bloqueo=+ objeto.getBloqueo()+objeto.getArmadura();
-		}
-		int newDamage=bloqueo-damage;
-		if(this.vida!=0){
-			setVida(this.vida-newDamage);
-			return true;
-		}
-		return false;
-	}
-
 }

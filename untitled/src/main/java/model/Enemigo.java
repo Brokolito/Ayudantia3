@@ -1,28 +1,21 @@
+package model;
+
 import java.util.ArrayList;
 
-public class Jugador {
+public abstract class Enemigo {
 	private String nombre;
-	private int fuerza;
-	private int inteligencia;
-	private int bloqueo;
-	private int armadura;
-	private int estamina;
-	private int vida;
-	private ArrayList<Objeto> objetos;
+	protected int fuerza;
+	protected int inteligencia;
+	protected int bloqueo;
+	protected int armadura;
+	protected int estamina;
+	protected int vida;
+	protected ArrayList<Objeto> objetos;
 
-	public Jugador(String nombre) {
+	public Enemigo(String nombre) {
 		this.nombre=nombre;
 		this.objetos=new ArrayList<>();
-		this.fuerza=1;
-		this.inteligencia=2;
-		this.bloqueo=5;
-		this.armadura=10;
-		this.estamina=10;
-		int vidaExtra=0;
-		for(Objeto objeto:this.objetos){
-			vidaExtra=+ objeto.getVida();
-		}
-		this.vida=1000+vidaExtra;	}
+	}
 
 	public String getNombre() {
 		return this.nombre;
@@ -72,6 +65,14 @@ public class Jugador {
 		this.estamina = estamina;
 	}
 
+	public ArrayList<Objeto> getObjetos() {
+		return objetos;
+	}
+
+	public void setObjetos(ArrayList<Objeto> objetos) {
+		this.objetos = objetos;
+	}
+
 	public int getVida() {
 		return this.vida;
 	}
@@ -80,17 +81,9 @@ public class Jugador {
 		this.vida = vida;
 	}
 
-	public ArrayList<Objeto> getObjetos() {
-		return this.objetos;
-	}
+	public abstract String getType();
 
-	public void setObjetos(ArrayList<Objeto> objetos) {
-		this.objetos=objetos;
-	}
-
-	public int atacar() {
-		return (this.fuerza+inteligencia+5);
-	}
+	public abstract int atacar();
 	public boolean getDamage(int damage){
 		int bloqueo=0;
 		for(Objeto objeto:this.objetos){
@@ -103,4 +96,5 @@ public class Jugador {
 		}
 		return false;
 	}
-	}
+
+}
